@@ -1,0 +1,55 @@
+{% extends 'base.html' %}{% block title %} Uimage - Change Email {% endblock %}
+
+
+{% block content %}
+<div class="col-md-5" style="margin-top: 5em;">
+    <h1>Change Email</h1>
+    <div class="border-top pt-3">
+    </div>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.old_email.label(class="form-label") }}
+          {% if form.old_email.errors %}
+            {{ form.old_email(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.old_email.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %}
+            {{ form.old_email(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="mb-3">
+          {{ form.password.label(class="form-label") }}
+          {% if form.password.errors %}
+            {{ form.password(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %}
+            {{ form.password(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.new_email.label(class="form-label") }}
+            {% if form.new_email.errors %}
+              {{ form.new_email(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.new_email.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.new_email(class="form-control") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-dark") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+<p>Hello {{ user.username }}</p>
+<p>To confirm Your new email address <a href="{{ url_for('auth.change_email', token=token, _external=True) }}">click here</a>.</p>
+<p>Alternatively, You can paste this link in your browser's address bar:</p>
+<p>{{ url_for('auth.change_email', token=token, _external=True) }}</p>
+<p>Sincerely,</p>
+<p>The Uimage Team</p>
+<p><small>Note: Replies to this email address are not monitored.</small></p>

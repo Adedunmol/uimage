@@ -1,0 +1,29 @@
+{% extends 'base.html' %}{% block title %} Uimage - Log In {% endblock %}
+
+
+{% block content %}
+{% include '_posts.html' %}
+
+<div class="col-md-5" style="margin-top: 5em;">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.comment.label(class="form-label") }} as {{ current_user.username }}...
+          {% if form.comment.errors %}
+            {{ form.comment(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.comment.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %}
+            {{ form.comment(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-dark") }}
+        </div>
+    </form>
+</div>
+{% include '_comments.html' %}
+{% endblock %}

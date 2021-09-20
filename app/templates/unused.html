@@ -1,0 +1,15 @@
+<a href="{{ url_for('main.edit_profile') }}"><button class="btn profile-edit-btn" style="font-size: 1.4rem; line-height: 1.8; border: 0.1rem solid #dbdbdb; border-radius: 0.3rem; padding: 0 2.4rem; margin-left: 2rem;">Edit Profile</button></a>
+
+/* line 48 in profile.html */
+<div class="profile-bio" style="float: left; width: calc(66.666% - 2rem); font-size: 1.6rem; font-weight: 400; line-height: 1.5; margin-top: 2.1rem;">
+        
+    {% if current_user != user and current_user.can(Permissions.FOLLOW) %}
+    <div class="form-group">
+        {% if not current_user.is_following(user) %}
+        <a style="margin-left: 28.7rem; margin-top: -3rem;" class="btn btn-dark" href="{{ url_for('main.follow', id=user.id) }}">Follow</a>  {% if user.is_following(current_user) %}| <span style="font-size: 1rem;">Follows you</span>{% endif %}
+        {% else %}
+        <a class="btn btn-outline-secondary" href="{{ url_for('main.unfollow', id=user.id) }}">Unfollow</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>

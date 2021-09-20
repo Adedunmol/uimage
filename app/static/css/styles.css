@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.card{
+    background: white;
+    padding: 1em;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.089);
+}
+.post_header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.4em;
+    position: relative;
+}
+.post_header i{
+    position: absolute;
+    right: 0;
+}
+.heading{
+    margin-left: 0.4em;
+}
+.heading .main_heading{
+    font-size: 0.8em;
+}
+.heading .sub_heading{
+    font-size: 0.6em;
+    color: rgba(0, 0, 0, 0.836);
+}
+.post_header img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.432);
+}
+.post_img img{
+    width: 230px;
+    height: 230px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.397);
+}
+.post_footer{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.btn::before{
+    content: '\f004';
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: 'Font Awesome 5 free';
+    font-size: 1.4em;
+}
+.btn:checked::before{
+    content: '\f004';
+    font-weight: 700;
+    color: red;
+}
+.left_box{
+    display: flex;
+    align-items: center;
+}
+.left_box img{
+    width: 18px;
+    height: 18px;
+    margin-left: 0.4em;
+}
+.right_box img{
+    width: 17px;
+    height: 17px;
+}

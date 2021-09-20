@@ -1,0 +1,75 @@
+{% extends 'base.html' %}{% block title %}Uimage - Saves {% endblock %}
+{% import '_macros.html' as macros %}
+
+{% block content %}
+{% for post in posts %}
+<div class="card" style="width: 22rem; margin-top: 8%;">
+  <img src="{{ url_for('static', filename='uploads/' + post.post.image) }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    {% if current_user.is_authenticated %}
+    <div style="width: 100%; height: 30px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        {% if current_user.can(Permissions.LIKE) and current_user.has_liked(post.post) %}
+        <a style="text-decoration: none; color: inherit;" href="{{ url_for('main.unlike', id=post.post.id) }}"><i style="font-size: 35px; color: blue; margin-bottom: 0.2em;" class="fas fa-thumbs-up"></i></a>
+        {% else %}
+        <a style="color: inherit; text-decoration: none;" href="{{ url_for('main.like', id=post.post.id) }}"><i class="far fa-thumbs-up" style="font-size:35px; margin-bottom: 0.2em;"></i></a>
+        {% endif %}
+        {% if current_user.can(Permissions.COMMENT) %}
+        <a style="text-decoration: none; color: inherit;" href="{{ url_for('main.post', id=post.post.id) }}"><i class='far fa-comment' style='font-size:35px; margin-left: 0.3em;'></i></a>
+        {% endif %}
+      </div>
+      <div>
+        {% if post.post.user == current_user or current_user.is_admin() %}
+        <a style="color: inherit; margin-right: 0.2rem;" href="{{ url_for('main.delete_post', id=post.post.id) }}" data-bs-toggle="modal", data-bs-target="#deleteModal"><i style="font-size: 32px;" class="fas fa-trash"></i></a>
+        {% endif %}
+        {% if current_user.has_saved(post.post) %}
+        <a style="color: inherit; text-decoration: none;" href="{{ url_for('main.unsave', id=post.post.id) }}"><i style="font-size: 35px;" class="fas fa-bookmark"></i></a>
+        {% else %}
+        <a style="color: inherit; text-decoration: none;" href="{{ url_for('main.save', id=post.post.id) }}"><i style="font-size: 35px;" class="far fa-bookmark"></i></a>
+        {% endif %}
+      </div>
+    {% endif %}
+    </div>
+    <img src="{{ post.post.user.gravatar_url() }}" style="width: 30px; height: 30px; border-radius: 50px;" alt="...">
+    <span class="card-title" style="font-size: 1.4em;"><a style="color: inherit; text-decoration: none;" href="{{ url_for('auth.profile', id=post.post.user.id) }}">{{ post.post.user.username }}</a></span>
+    <p class="card-text" style="font-size: 1.5em;">{% if post.caption_html %}{{ post.caption_html | safe }}{% else %}{{ post.caption }}{% endif %}</p>
+    <p style="font-size: 0.7em;">{{ moment(post.post.timestamp).fromNow() }}</p>
+    
+    <div class="post-footer">
+      <span class="label label-primary">{{ post.post.likes.count() }}</span> {% if post.post.likes.count() > 1 %} Likes {% else %} Like {% endif %} 0 Comments
+      {% if current_user == post.post.user or current_user.is_admin() %}
+      <span style="background-color: blue; border: none; color: white; padding: 4px 8px; text-align: center; border-radius: 8px; margin-left: 8rem;"><a style="color: inherit; text-decoration: none;" href="{{ url_for('main.edit_post', id=post.post.id) }}">Edit</a></span>
+      {% endif %}
+    </div>
+    {% if post.location %}
+    <span>Location: <a href="http://maps.google.com/?q={{ post.location }}">{{ post.post.location }}</a></span>
+    {% endif %}
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          This post can't be recovered after deleting.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger"><a style="color: inherit; text-decoration: none;" href="{{ url_for('main.delete_post', id=post.post.id) }}">Delete Post</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% if pagination %}
+<div class="pagination" style="margin-top: 1rem; margin-left: 1rem;">
+    {{ macros.pagination_widget(pagination, '.home') }}
+</div>
+{% endif %}
+
+{% endblock %}

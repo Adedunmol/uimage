@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block title %} Uimage - Home {% endblock %}
+{% import '_macros.html' as macros %}
+
+{% block content %}
+{% include '_posts.html' %}
+
+{% if pagination %}
+<div class="pagination" style="margin-top: 1rem; margin-left: 1rem;">
+    {{ macros.pagination_widget(pagination, '.home') }}
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+Hello {{ user.username }}
+
+Thanks for signing up with Uimage! You must follow this link to activate your account:
+
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+Sincerely,
+ 
+The Uimage Team.
+
+Note: Replies to this email are not monitored.

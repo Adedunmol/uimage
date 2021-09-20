@@ -1,0 +1,35 @@
+{% extends 'base.html' %}{% block title %}Uimage - Followers {% endblock %}
+{% import '_macros.html' as macros %}
+
+{% block content %}
+<table class="table" style="margin-top: 5rem;">
+    <h1 style="margin-top: 3rem;">{{ title }} {{ user.username }}</h1>
+    <thead>
+      <tr>
+        <th scope="col">Avatar</th>
+        <th scope="col">Username</th>
+        <th scope="col">Date Followed</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for follow in follows %}
+            {% if follow.user != user %}
+            <tr>
+                <th scope="row"><img style="width: 30px; height: 30px; border-radius: 50px;" src="{{ follow.user.gravatar_url(300) }}"></th>
+                <td><a style="text-decoration: none; color: inherit;" href="{{ url_for('auth.profile', id=follow.user.id) }}">{{ follow.user.username }}</td>
+                <td>{{ moment(follow.timestamp).format('L') }}</td>
+                <td>@{{ follow.user.username }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+  </table>
+  
+{% if pagination %}
+<div class="pagination" style="margin-top: 1rem; margin-left: 1rem;">
+    {{ macros.pagination_widget(pagination, '.home') }}
+</div>
+{% endif %}
+
+{% endblock %}

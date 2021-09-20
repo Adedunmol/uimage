@@ -1,0 +1,11 @@
+Hello {{ user.username }}
+
+To confirm Your new email address click on the following link:
+
+{{ url_for('auth.change_email', token=token, _external=True) }}
+
+Sincerely,
+
+The Uimage Team
+
+Note: Replies to this email address are not monitored.

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}{% block title %} Uimage - New Post {% endblock %}
+
+
+{% block content %}
+<div class="col-md-5" style="margin-top: 5em;">
+    <h1>New Post</h1>
+    <div class="border-top pt-3">
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.caption.label(class="form-label") }}
+          {% if form.caption.errors %}
+            {{ form.caption(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.caption.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %}
+            {{ form.caption(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.location.label(class="form-label") }}
+            {% if form.location.errors %}
+              {{ form.location(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.caption.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.location(class="form-control") }}
+            {% endif %}
+        </div>
+        <div class="mb-3">
+          {{ form.image.label(class="form-label") }}
+          {% if form.image.errors %}
+            {{ form.image(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.image.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %}
+            {{ form.image(class="form-control") }}
+          {% endif %}
+      </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-dark") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

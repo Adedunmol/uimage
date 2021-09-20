@@ -1,0 +1,111 @@
+{% extends 'base.html' %}{% block title %} Uimage - Edit Profile {% endblock %}
+
+
+{% block content %}
+<div class="col-md-5" style="margin-top: 7em; margin-left: 1em;">
+    <h1>Edit Profile</h1>
+    <div class="border-top pt-3">
+    </div>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.full_name.label(class="form-label") }}
+          {% if form.full_name.errors %}
+            {{ form.full_name(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.full_name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %}
+            {{ form.full_name(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="mb-3">
+          {{ form.username.label(class="form-label") }}
+          {% if form.username.errors %}
+            {{ form.username(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+          {% else %}
+            {{ form.username(class="form-control") }}
+          {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.about_me.label(class="form-label") }}
+            {% if form.about_me.errors %}
+              {{ form.about_me(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.about_me.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.about_me(class="form-control") }}
+            {% endif %}
+        </div>
+        <div class="form-check">
+            {{ form.private(class="form-check-input") }}
+            {{ form.private.label(class="form-check-label") }}
+        </div>
+        <div class="mb-3">
+            {{ form.location.label(class="form-label") }}
+            {% if form.location.errors %}
+              {{ form.location(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.location.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.location(class="form-control") }}
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.insta_handle.label(class="form-label") }}
+            {% if form.insta_handle.errors %}
+              {{ form.insta_handle(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.insta_handle.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.insta_handle(class="form-control") }}
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.twitter_handle.label(class="form-label") }}
+            {% if form.twitter_handle.errors %}
+              {{ form.twitter_handle(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.twitter_handle.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.twitter_handle(class="form-control") }}
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.facebook_handle.label(class="form-label") }}
+            {% if form.facebook_handle.errors %}
+              {{ form.facebook_handle(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in form.facebook_handle.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+            {% else %}
+              {{ form.facebook_handle(class="form-control") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-dark") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

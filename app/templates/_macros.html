@@ -1,0 +1,22 @@
+{% macro pagination_widget(pagination, endpoint, fragment='') %}
+    <ul class="pagination">
+      <li {% if not pagination.has_next %} class="page-item disabled" {% else %} class="page-item" {% endif %}>
+        <a class="page-link" {% if pagination.has_prev %} href="{{ url_for(endpoint, page=pagination.prev_num) }}{{ fragment }}{% else %}#{% endif %}" tabindex="-1" aria-disabled="true">&laquo;</a>
+      </li>
+      {% for page in pagination.iter_pages() %}
+        {% if page %}
+            {% if page == pagination.page %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="{{ url_for(endpoint, page=page) }}{{ fragment }}">{{ page }}</a>
+            </li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for(endpoint, page=page) }}{{ fragment }}">{{ page }}</a></li>
+            
+            {% endif %}
+        {% endif %}
+      {% endfor %}
+      <li {% if pagination.has_next %} class="page-item" {% else %} class="page-item disabled" {% endif %}>
+        <a class="page-link" {% if pagination.has_next %} href="{{ url_for(endpoint, page=pagination.next_num) }}{{ fragment }}" {% else %}#{% endif %}>&raquo;</a>
+    </li>
+    </ul>
+{% endmacro %}

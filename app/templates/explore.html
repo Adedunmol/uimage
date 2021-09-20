@@ -1,0 +1,36 @@
+{% extends 'base.html' %}{% block title %}Uimage - Explore{% endblock %}
+
+{% import '_macros.html' as macros %}
+
+{% block content %}
+<table class="table" style="margin-top: 5rem;">
+    <h1 style="margin-top: 3rem;">Discover New Users</h1>
+    <thead>
+      <tr>
+        <th scope="col">Avatar</th>
+        <th scope="col">Username</th>
+        <th scope="col">Date Joined</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            {% if current_user != user %}
+            <tr>
+                <th scope="row"><img style="width: 30px; height: 30px; border-radius: 50px;" src="{{ user.gravatar_url(300) }}"></th>
+                <td><a style="text-decoration: none; color: inherit;" href="{{ url_for('auth.profile', id=user.id) }}">{{ user.username }}</td>
+                <td>{{ moment(user.date_joined).format('L') }}</td>
+                <td>@{{ user.username }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+  </table>
+  
+{% if pagination %}
+<div class="pagination" style="margin-top: 1rem; margin-left: 1rem;">
+    {{ macros.pagination_widget(pagination, '.home') }}
+</div>
+{% endif %}
+
+{% endblock %}
