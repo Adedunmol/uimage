@@ -1,8 +1,7 @@
 import os
 
 class Config:
-    APIFAIRY_TITLE = 'Uimage'
-    APIFAIRY_VERSION = '1.0'
+    SSL_REDIRECT = False
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'mynameishardtoguess'
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
@@ -71,6 +70,7 @@ class ProductionConfig(Config):
 
 
 class HerokuConfig(ProductionConfig):
+    SSL_REDIRECT = True if os.environ.get('DYNO') else False
     @classmethod
     def init_app(cls, app):
         ProductionConfig.init_app(app)
@@ -80,6 +80,10 @@ class HerokuConfig(ProductionConfig):
         file_handler = StreamHandler()
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
+
+        from werkzeug.middleware.proxy_fix import ProxyFix
+
+        app.wsgi_app = ProxyFix(app.wsgi_app)
 
 config = {
     'default': DevelopmentConfig,
