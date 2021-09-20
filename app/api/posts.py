@@ -70,7 +70,7 @@ def delete_post(id):
         return forbidden('Post is not yours.')
     page = request.args.get('page', 1, int)
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page, per_page=current_app.config['UIMAGE_POSTS_PER_PAGE'], error_out=False)
-    os.remove(os.path.join(path, current_app.config['UPLOAD_PATH'], post.image))
+#    os.remove(os.path.join(path, current_app.config['UPLOAD_PATH'], post.image))
     db.session.delete(post)
     db.session.commit()
     return jsonify({
