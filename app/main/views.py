@@ -237,7 +237,6 @@ def edit_profile_admin(id):
 def delete_post(id):
     post = Post.query.get(id)
     if current_user == post.user or current_user.is_admin():
-        os.remove(os.path.join(path, current_app.config['UPLOAD_PATH'], post.image))
         db.session.delete(post)
         db.session.commit()
         flash('The post has been deleted.')
