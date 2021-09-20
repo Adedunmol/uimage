@@ -41,7 +41,8 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    uri = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = uri.replace('postgres://', 'postgresql://') or \
          'sqlite:///' + os.path.join(os.path.dirname(__file__), 'prod-dev.sqlite')
 
     @classmethod
