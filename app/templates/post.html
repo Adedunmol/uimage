@@ -1,4 +1,5 @@
 {% extends 'base.html' %}{% block title %} Uimage - Log In {% endblock %}
+{% import '_macros.html' as macros %}
 
 
 {% block content %}
@@ -26,4 +27,11 @@
     </form>
 </div>
 {% include '_comments.html' %}
+
+{% if pagination %}
+<div class="pagination" style="margin-top: 1rem; margin-left: 1rem;">
+    {{ macros.pagination_widget(pagination, '.home') }}
+</div>
+{% endif %}
+
 {% endblock %}
